@@ -1,0 +1,355 @@
+﻿<Window x:Class="Enigma.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Enigma"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+
+    <Window.Resources>
+        <Style TargetType="ComboBox">
+            <Setter Property="Margin" Value="5"/>
+            <Setter Property="FontSize" Value="15"/>
+            <Setter Property="Width" Value="40"/>
+        </Style>
+        <Style TargetType="Label">
+            <Setter Property="FontSize" Value="20"/>
+        </Style>
+        <Style TargetType="xctk:IntegerUpDown">
+            <Setter Property="Width" Value="50"/>
+            <Setter Property="FontSize" Value="20"/>
+            <Setter Property="Margin" Value="5"/>
+        </Style>
+        <Style x:Key="Lamp" TargetType="Border">
+            <Setter Property="Width" Value="50"/>
+            <Setter Property="Height" Value="50"/>
+            <Setter Property="CornerRadius" Value="50"/>
+            <Setter Property="Background" Value="LightGray"/>
+        </Style>
+        <Style TargetType="TextBlock">
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="FontSize" Value="20"/>
+            <Setter Property="Background" Value="Transparent"/>
+        </Style>
+        <Style x:Key="RoundButton" TargetType="Button">
+            <Setter Property="Width" Value="15"/>
+            <Setter Property="Height" Value="15"/>
+            <Setter Property="Background" Value="LightGray"/>
+            <Setter Property="BorderBrush" Value="Black"/>
+            <Setter Property="BorderThickness" Value="2"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Grid>
+                            <Ellipse Fill="{TemplateBinding Background}"
+                                 Stroke="{TemplateBinding BorderBrush}"
+                                 StrokeThickness="{TemplateBinding BorderThickness}"/>
+                            <ContentPresenter HorizontalAlignment="Center"
+                                          VerticalAlignment="Center"/>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style TargetType="StackPanel">
+            <Setter Property="Width" Value="30"/>
+        </Style>
+    </Window.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="15*"></RowDefinition>
+            <RowDefinition Height="40*"></RowDefinition>
+            <RowDefinition Height="45*"></RowDefinition>
+        </Grid.RowDefinitions>
+
+
+        <Grid Grid.Row="0"> <!-- Settings -->
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+
+            <WrapPanel Grid.Column="0"> <!-- Rotor selection -->
+                <Label>Rotors:</Label>
+                <ComboBox x:Name="FirstRotorComboBox" SelectionChanged="setRotors"></ComboBox>
+                <ComboBox x:Name="SecondRotorComboBox" SelectionChanged="setRotors"></ComboBox>
+                <ComboBox x:Name="ThirdRotorComboBox" SelectionChanged="setRotors"></ComboBox>
+            </WrapPanel>
+            <WrapPanel Grid.Column="1"> <!-- Configuration selection -->
+                <Label>Conf:</Label>
+                <xctk:IntegerUpDown Maximum="26" Minimum="1" Value="1"></xctk:IntegerUpDown>
+                <xctk:IntegerUpDown Maximum="26" Minimum="1" Value="1"></xctk:IntegerUpDown>
+                <xctk:IntegerUpDown Maximum="26" Minimum="1" Value="1"></xctk:IntegerUpDown>
+            </WrapPanel>
+            <WrapPanel Grid.Column="2"><!-- Reflector selection -->
+                <Label>Reflector:</Label>
+                <ComboBox>
+                    <ComboBoxItem>A</ComboBoxItem>
+                    <ComboBoxItem>B</ComboBoxItem>
+                    <ComboBoxItem>C</ComboBoxItem>
+                </ComboBox>
+            </WrapPanel>
+        </Grid>
+        <Grid Grid.Row="1" Margin="50 0 50 0"><!-- Lampboard -->
+            <Grid.RowDefinitions>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+
+                <Border Style="{StaticResource Lamp}" Grid.Column="0">
+                    <TextBlock  Text="Q"/>
+                </Border>
+                <Border Style="{StaticResource Lamp}" Grid.Column="1">
+                    <TextBlock  Text="W"/>
+                </Border>
+                <Border Style="{StaticResource Lamp}" Grid.Column="2">
+                    <TextBlock  Text="E"/>
+                </Border>
+                <Border Style="{StaticResource Lamp}" Grid.Column="3">
+                    <TextBlock  Text="R"/>
+                </Border>
+                <Border Style="{StaticResource Lamp}" Grid.Column="4">
+                    <TextBlock  Text="T"/>
+                </Border>
+                <Border Style="{StaticResource Lamp}" Grid.Column="5">
+                    <TextBlock  Text="Z"/>
+                </Border>
+                <Border Style="{StaticResource Lamp}" Grid.Column="6">
+                    <TextBlock  Text="U"/>
+                </Border>
+                <Border Style="{StaticResource Lamp}" Grid.Column="7">
+                    <TextBlock  Text="I"/>
+                </Border>
+                <Border Style="{StaticResource Lamp}" Grid.Column="8">
+                    <TextBlock  Text="O"/>
+                </Border>
+            </Grid>
+            <Grid Grid.Row="1" Margin="50 0 50 0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+
+                <Border Style="{StaticResource Lamp}" Grid.Column="0">
+                    <TextBlock  Text="A"/>
+                </Border>
+                <Border Style="{StaticResource Lamp}" Grid.Column="1">
+                    <TextBlock  Text="S"/>
+                </Border>
+                <Border Style="{StaticResource Lamp}" Grid.Column="2">
+                    <TextBlock  Text="D"/>
+                </Border>
+                <Border Style="{StaticResource Lamp}" Grid.Column="3">
+                    <TextBlock  Text="F"/>
+                </Border>
+                <Border Style="{StaticResource Lamp}" Grid.Column="4">
+                    <TextBlock  Text="G"/>
+                </Border>
+                <Border Style="{StaticResource Lamp}" Grid.Column="5">
+                    <TextBlock  Text="H"/>
+                </Border>
+                <Border Style="{StaticResource Lamp}" Grid.Column="6">
+                    <TextBlock  Text="J"/>
+                </Border>
+                <Border Style="{StaticResource Lamp}" Grid.Column="7">
+                    <TextBlock  Text="K"/>
+                </Border>
+            </Grid>
+            <Grid Grid.Row="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+
+                <Border Style="{StaticResource Lamp}" Grid.Column="0">
+                    <TextBlock  Text="P"/>
+                </Border>
+                <Border Style="{StaticResource Lamp}" Grid.Column="1">
+                    <TextBlock  Text="Y"/>
+                </Border>
+                <Border Style="{StaticResource Lamp}" Grid.Column="2">
+                    <TextBlock  Text="X"/>
+                </Border>
+                <Border Style="{StaticResource Lamp}" Grid.Column="3">
+                    <TextBlock  Text="C"/>
+                </Border>
+                <Border Style="{StaticResource Lamp}" Grid.Column="4">
+                    <TextBlock  Text="V"/>
+                </Border>
+                <Border Style="{StaticResource Lamp}" Grid.Column="5">
+                    <TextBlock  Text="B"/>
+                </Border>
+                <Border Style="{StaticResource Lamp}" Grid.Column="6">
+                    <TextBlock  Text="N"/>
+                </Border>
+                <Border Style="{StaticResource Lamp}" Grid.Column="7">
+                    <TextBlock  Text="M"/>
+                </Border>
+                <Border Style="{StaticResource Lamp}" Grid.Column="8">
+                    <TextBlock  Text="L"/>
+                </Border>
+            </Grid>
+        </Grid>
+        <Grid Grid.Row="2" Margin="0 20 0 0"> <!-- Plugboard -->
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="40*"></ColumnDefinition>
+                <ColumnDefinition Width="60*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Grid>
+                <Canvas>
+                    <StackPanel Canvas.Left="10" HorizontalAlignment="Center">
+                        <Label HorizontalAlignment="Center">Q</Label>
+                        <Button Style="{StaticResource RoundButton}"></Button>
+                    </StackPanel>
+                    <StackPanel Canvas.Left="40" HorizontalAlignment="Center">
+                        <Label HorizontalAlignment="Center">W</Label>
+                        <Button Style="{StaticResource RoundButton}"></Button>
+                    </StackPanel>
+                    <StackPanel Canvas.Left="70" HorizontalAlignment="Center">
+                        <Label HorizontalAlignment="Center">E</Label>
+                        <Button Style="{StaticResource RoundButton}"></Button>
+                    </StackPanel>
+                    <StackPanel Canvas.Left="100" HorizontalAlignment="Center">
+                        <Label HorizontalAlignment="Center">R</Label>
+                        <Button Style="{StaticResource RoundButton}"></Button>
+                    </StackPanel>
+                    <StackPanel Canvas.Left="130" HorizontalAlignment="Center">
+                        <Label HorizontalAlignment="Center">T</Label>
+                        <Button Style="{StaticResource RoundButton}"></Button>
+                    </StackPanel>
+                    <StackPanel Canvas.Left="160" HorizontalAlignment="Center">
+                        <Label HorizontalAlignment="Center">Z</Label>
+                        <Button Style="{StaticResource RoundButton}"></Button>
+                    </StackPanel>
+                    <StackPanel Canvas.Left="190" HorizontalAlignment="Center">
+                        <Label HorizontalAlignment="Center">U</Label>
+                        <Button Style="{StaticResource RoundButton}"></Button>
+                    </StackPanel>
+                    <StackPanel Canvas.Left="220" HorizontalAlignment="Center">
+                        <Label HorizontalAlignment="Center">I</Label>
+                        <Button Style="{StaticResource RoundButton}"></Button>
+                    </StackPanel>
+                    <StackPanel Canvas.Left="250" HorizontalAlignment="Center">
+                        <Label HorizontalAlignment="Center">O</Label>
+                        <Button Style="{StaticResource RoundButton}"></Button>
+                    </StackPanel>
+                    <StackPanel Canvas.Left="10" Canvas.Top="50" HorizontalAlignment="Center">
+                        <Label HorizontalAlignment="Center">A</Label>
+                        <Button Style="{StaticResource RoundButton}"></Button>
+                    </StackPanel>
+                    <StackPanel Canvas.Left="40" Canvas.Top="50" HorizontalAlignment="Center">
+                        <Label HorizontalAlignment="Center">S</Label>
+                        <Button Style="{StaticResource RoundButton}"></Button>
+                    </StackPanel>
+                    <StackPanel Canvas.Left="70" Canvas.Top="50" HorizontalAlignment="Center">
+                        <Label HorizontalAlignment="Center">D</Label>
+                        <Button Style="{StaticResource RoundButton}"></Button>
+                    </StackPanel>
+                    <StackPanel Canvas.Left="100" Canvas.Top="50" HorizontalAlignment="Center">
+                        <Label HorizontalAlignment="Center">F</Label>
+                        <Button Style="{StaticResource RoundButton}"></Button>
+                    </StackPanel>
+                    <StackPanel Canvas.Left="130" Canvas.Top="50" HorizontalAlignment="Center">
+                        <Label HorizontalAlignment="Center">G</Label>
+                        <Button Style="{StaticResource RoundButton}"></Button>
+                    </StackPanel>
+                    <StackPanel Canvas.Left="160" Canvas.Top="50" HorizontalAlignment="Center">
+                        <Label HorizontalAlignment="Center">H</Label>
+                        <Button Style="{StaticResource RoundButton}"></Button>
+                    </StackPanel>
+                    <StackPanel Canvas.Left="190" Canvas.Top="50" HorizontalAlignment="Center">
+                        <Label HorizontalAlignment="Center">J</Label>
+                        <Button Style="{StaticResource RoundButton}"></Button>
+                    </StackPanel>
+                    <StackPanel Canvas.Left="220" Canvas.Top="50" HorizontalAlignment="Center">
+                        <Label HorizontalAlignment="Center">K</Label>
+                        <Button Style="{StaticResource RoundButton}"></Button>
+                    </StackPanel>
+                    <StackPanel Canvas.Left="250" Canvas.Top="50" HorizontalAlignment="Center">
+                        <Label HorizontalAlignment="Center">P</Label>
+                        <Button Style="{StaticResource RoundButton}"></Button>
+                    </StackPanel>
+                    <StackPanel Canvas.Left="20" Canvas.Top="100" HorizontalAlignment="Center">
+                        <Label HorizontalAlignment="Center">Y</Label>
+                        <Button Style="{StaticResource RoundButton}"></Button>
+                    </StackPanel>
+                    <StackPanel Canvas.Left="50" Canvas.Top="100" HorizontalAlignment="Center">
+                        <Label HorizontalAlignment="Center">X</Label>
+                        <Button Style="{StaticResource RoundButton}"></Button>
+                    </StackPanel>
+                    <StackPanel Canvas.Left="80" Canvas.Top="100" HorizontalAlignment="Center">
+                        <Label HorizontalAlignment="Center">C</Label>
+                        <Button Style="{StaticResource RoundButton}"></Button>
+                    </StackPanel>
+                    <StackPanel Canvas.Left="110" Canvas.Top="100" HorizontalAlignment="Center">
+                        <Label HorizontalAlignment="Center">V</Label>
+                        <Button Style="{StaticResource RoundButton}"></Button>
+                    </StackPanel>
+                    <StackPanel Canvas.Left="140" Canvas.Top="100" HorizontalAlignment="Center">
+                        <Label HorizontalAlignment="Center">B</Label>
+                        <Button Style="{StaticResource RoundButton}"></Button>
+                    </StackPanel>
+                    <StackPanel Canvas.Left="170" Canvas.Top="100" HorizontalAlignment="Center">
+                        <Label HorizontalAlignment="Center">N</Label>
+                        <Button Style="{StaticResource RoundButton}"></Button>
+                    </StackPanel>
+                    <StackPanel Canvas.Left="200" Canvas.Top="100" HorizontalAlignment="Center">
+                        <Label HorizontalAlignment="Center">M</Label>
+                        <Button Style="{StaticResource RoundButton}"></Button>
+                    </StackPanel>
+                    <StackPanel Canvas.Left="230" Canvas.Top="100" HorizontalAlignment="Center">
+                        <Label HorizontalAlignment="Center">L</Label>
+                        <Button Style="{StaticResource RoundButton}"></Button>
+                    </StackPanel>
+                </Canvas>
+            </Grid>
+            <Grid Grid.Column="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                </Grid.RowDefinitions>
+                <StackPanel Grid.Row="0" Width="Auto">
+                    <Label FontSize="15">Input:</Label>
+                    <TextBox Width="Auto" Height="Auto"></TextBox>
+                </StackPanel>
+                <StackPanel Grid.Row="1" Width="Auto">
+                    <Label FontSize="15">Output:</Label>
+                    <TextBox Width="Auto" Height="Auto"></TextBox>
+                </StackPanel>
+            </Grid>
+        </Grid>
+    </Grid>
+
+</Window>
