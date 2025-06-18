@@ -1,5 +1,7 @@
 ﻿<Window x:Class="Enigma.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        KeyDown="KeyTyped"
+        KeyUp="KeyReleased"
         xmlns:controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -77,23 +79,19 @@
 
             <WrapPanel Grid.Column="0"> <!-- Rotor selection -->
                 <Label>Rotors:</Label>
-                <ComboBox x:Name="FirstRotorComboBox" SelectionChanged="setRotors"></ComboBox>
-                <ComboBox x:Name="SecondRotorComboBox" SelectionChanged="setRotors"></ComboBox>
-                <ComboBox x:Name="ThirdRotorComboBox" SelectionChanged="setRotors"></ComboBox>
+                <ComboBox x:Name="FirstRotorComboBox" ItemsSource="{Binding AllRotors}" SelectionChanged="ConfigEnigma"></ComboBox>
+                <ComboBox x:Name="SecondRotorComboBox" ItemsSource="{Binding AllRotors}" SelectionChanged="ConfigEnigma"></ComboBox>
+                <ComboBox x:Name="ThirdRotorComboBox" ItemsSource="{Binding AllRotors}" SelectionChanged="ConfigEnigma"></ComboBox>
             </WrapPanel>
             <WrapPanel Grid.Column="1"> <!-- Configuration selection -->
                 <Label>Conf:</Label>
-                <xctk:IntegerUpDown Maximum="26" Minimum="1" Value="1"></xctk:IntegerUpDown>
-                <xctk:IntegerUpDown Maximum="26" Minimum="1" Value="1"></xctk:IntegerUpDown>
-                <xctk:IntegerUpDown Maximum="26" Minimum="1" Value="1"></xctk:IntegerUpDown>
+                <xctk:IntegerUpDown x:Name="FirstConfIUD" Maximum="26" Minimum="1" Value="1"></xctk:IntegerUpDown>
+                <xctk:IntegerUpDown x:Name="SecondConfIUD" Maximum="26" Minimum="1" Value="1"></xctk:IntegerUpDown>
+                <xctk:IntegerUpDown x:Name="ThirdConfIUD" Maximum="26" Minimum="1" Value="1"></xctk:IntegerUpDown>
             </WrapPanel>
             <WrapPanel Grid.Column="2"><!-- Reflector selection -->
                 <Label>Reflector:</Label>
-                <ComboBox>
-                    <ComboBoxItem>A</ComboBoxItem>
-                    <ComboBoxItem>B</ComboBoxItem>
-                    <ComboBoxItem>C</ComboBoxItem>
-                </ComboBox>
+                <ComboBox x:Name="ReflectorComboBox" ItemsSource="{Binding AllReflectors}" SelectionChanged="ConfigEnigma"></ComboBox>
             </WrapPanel>
         </Grid>
         <Grid Grid.Row="1" Margin="50 0 50 0"><!-- Lampboard -->
@@ -115,31 +113,31 @@
                     <ColumnDefinition></ColumnDefinition>
                 </Grid.ColumnDefinitions>
 
-                <Border Style="{StaticResource Lamp}" Grid.Column="0">
+                <Border x:Name="Q_Lamp" Style="{StaticResource Lamp}" Grid.Column="0">
                     <TextBlock  Text="Q"/>
                 </Border>
-                <Border Style="{StaticResource Lamp}" Grid.Column="1">
+                <Border x:Name="W_Lamp" Style="{StaticResource Lamp}" Grid.Column="1">
                     <TextBlock  Text="W"/>
                 </Border>
-                <Border Style="{StaticResource Lamp}" Grid.Column="2">
+                <Border x:Name="E_Lamp" Style="{StaticResource Lamp}" Grid.Column="2">
                     <TextBlock  Text="E"/>
                 </Border>
-                <Border Style="{StaticResource Lamp}" Grid.Column="3">
+                <Border x:Name="R_Lamp" Style="{StaticResource Lamp}" Grid.Column="3">
                     <TextBlock  Text="R"/>
                 </Border>
-                <Border Style="{StaticResource Lamp}" Grid.Column="4">
+                <Border x:Name="T_Lamp" Style="{StaticResource Lamp}" Grid.Column="4">
                     <TextBlock  Text="T"/>
                 </Border>
-                <Border Style="{StaticResource Lamp}" Grid.Column="5">
+                <Border x:Name="Z_Lamp" Style="{StaticResource Lamp}" Grid.Column="5">
                     <TextBlock  Text="Z"/>
                 </Border>
-                <Border Style="{StaticResource Lamp}" Grid.Column="6">
+                <Border x:Name="U_Lamp" Style="{StaticResource Lamp}" Grid.Column="6">
                     <TextBlock  Text="U"/>
                 </Border>
-                <Border Style="{StaticResource Lamp}" Grid.Column="7">
+                <Border x:Name="I_Lamp" Style="{StaticResource Lamp}" Grid.Column="7">
                     <TextBlock  Text="I"/>
                 </Border>
-                <Border Style="{StaticResource Lamp}" Grid.Column="8">
+                <Border x:Name="O_Lamp" Style="{StaticResource Lamp}" Grid.Column="8">
                     <TextBlock  Text="O"/>
                 </Border>
             </Grid>
@@ -155,28 +153,28 @@
                     <ColumnDefinition></ColumnDefinition>
                 </Grid.ColumnDefinitions>
 
-                <Border Style="{StaticResource Lamp}" Grid.Column="0">
+                <Border x:Name="A_Lamp" Style="{StaticResource Lamp}" Grid.Column="0">
                     <TextBlock  Text="A"/>
                 </Border>
-                <Border Style="{StaticResource Lamp}" Grid.Column="1">
+                <Border x:Name="S_Lamp" Style="{StaticResource Lamp}" Grid.Column="1">
                     <TextBlock  Text="S"/>
                 </Border>
-                <Border Style="{StaticResource Lamp}" Grid.Column="2">
+                <Border x:Name="D_Lamp" Style="{StaticResource Lamp}" Grid.Column="2">
                     <TextBlock  Text="D"/>
                 </Border>
-                <Border Style="{StaticResource Lamp}" Grid.Column="3">
+                <Border x:Name="F_Lamp" Style="{StaticResource Lamp}" Grid.Column="3">
                     <TextBlock  Text="F"/>
                 </Border>
-                <Border Style="{StaticResource Lamp}" Grid.Column="4">
+                <Border x:Name="G_Lamp" Style="{StaticResource Lamp}" Grid.Column="4">
                     <TextBlock  Text="G"/>
                 </Border>
-                <Border Style="{StaticResource Lamp}" Grid.Column="5">
+                <Border x:Name="H_Lamp" Style="{StaticResource Lamp}" Grid.Column="5">
                     <TextBlock  Text="H"/>
                 </Border>
-                <Border Style="{StaticResource Lamp}" Grid.Column="6">
+                <Border x:Name="J_Lamp" Style="{StaticResource Lamp}" Grid.Column="6">
                     <TextBlock  Text="J"/>
                 </Border>
-                <Border Style="{StaticResource Lamp}" Grid.Column="7">
+                <Border x:Name="K_Lamp" Style="{StaticResource Lamp}" Grid.Column="7">
                     <TextBlock  Text="K"/>
                 </Border>
             </Grid>
@@ -193,31 +191,31 @@
                     <ColumnDefinition></ColumnDefinition>
                 </Grid.ColumnDefinitions>
 
-                <Border Style="{StaticResource Lamp}" Grid.Column="0">
+                <Border x:Name="P_Lamp" Style="{StaticResource Lamp}" Grid.Column="0">
                     <TextBlock  Text="P"/>
                 </Border>
-                <Border Style="{StaticResource Lamp}" Grid.Column="1">
+                <Border x:Name="Y_Lamp" Style="{StaticResource Lamp}" Grid.Column="1">
                     <TextBlock  Text="Y"/>
                 </Border>
-                <Border Style="{StaticResource Lamp}" Grid.Column="2">
+                <Border x:Name="X_Lamp" Style="{StaticResource Lamp}" Grid.Column="2">
                     <TextBlock  Text="X"/>
                 </Border>
-                <Border Style="{StaticResource Lamp}" Grid.Column="3">
+                <Border x:Name="C_Lamp" Style="{StaticResource Lamp}" Grid.Column="3">
                     <TextBlock  Text="C"/>
                 </Border>
-                <Border Style="{StaticResource Lamp}" Grid.Column="4">
+                <Border x:Name="V_Lamp" Style="{StaticResource Lamp}" Grid.Column="4">
                     <TextBlock  Text="V"/>
                 </Border>
-                <Border Style="{StaticResource Lamp}" Grid.Column="5">
+                <Border x:Name="B_Lamp" Style="{StaticResource Lamp}" Grid.Column="5">
                     <TextBlock  Text="B"/>
                 </Border>
-                <Border Style="{StaticResource Lamp}" Grid.Column="6">
+                <Border x:Name="N_Lamp" Style="{StaticResource Lamp}" Grid.Column="6">
                     <TextBlock  Text="N"/>
                 </Border>
-                <Border Style="{StaticResource Lamp}" Grid.Column="7">
+                <Border x:Name="M_Lamp" Style="{StaticResource Lamp}" Grid.Column="7">
                     <TextBlock  Text="M"/>
                 </Border>
-                <Border Style="{StaticResource Lamp}" Grid.Column="8">
+                <Border x:Name="L_Lamp" Style="{StaticResource Lamp}" Grid.Column="8">
                     <TextBlock  Text="L"/>
                 </Border>
             </Grid>
@@ -335,19 +333,31 @@
                     </StackPanel>
                 </Canvas>
             </Grid>
-            <Grid Grid.Column="1">
+            <Grid Grid.Column="1" Margin="0 0 0 10">
                 <Grid.RowDefinitions>
                     <RowDefinition></RowDefinition>
                     <RowDefinition></RowDefinition>
                 </Grid.RowDefinitions>
-                <StackPanel Grid.Row="0" Width="Auto">
-                    <Label FontSize="15">Input:</Label>
-                    <TextBox Width="Auto" Height="Auto"></TextBox>
-                </StackPanel>
-                <StackPanel Grid.Row="1" Width="Auto">
-                    <Label FontSize="15">Output:</Label>
-                    <TextBox Width="Auto" Height="Auto"></TextBox>
-                </StackPanel>
+
+                <Grid Grid.Row="0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="40*"></RowDefinition>
+                        <RowDefinition Height="60*"></RowDefinition>
+                    </Grid.RowDefinitions>
+
+                    <Label FontSize="15" Grid.Row="0">Input:</Label>
+                    <TextBox x:Name="InputTextBox" Width="Auto" Height="Auto" Grid.Row="1" FontSize="15" Margin="0 0 10 0"></TextBox>
+
+                </Grid>
+                <Grid Grid.Row="1">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="40*"></RowDefinition>
+                        <RowDefinition Height="60*"></RowDefinition>
+                    </Grid.RowDefinitions>
+
+                    <Label FontSize="15" Grid.Row="0">Output:</Label>
+                    <TextBox x:Name="OutputTextBox" Width="Auto" Height="Auto" Grid.Row="1" FontSize="15" Margin="0 0 10 0"></TextBox>
+                </Grid>
             </Grid>
         </Grid>
     </Grid>

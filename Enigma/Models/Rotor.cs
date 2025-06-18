@@ -12,27 +12,27 @@ namespace Enigma.Models
         private int currentConf = 0;
         private String Name { get; }
 
-        public Rotor(int type, int currentConf)
+        public Rotor(String type, int currentConf)
         {
             switch (type)
             {
-                case 1:
+                case "I":
                     code = "EKMFLGDQVZNTOWYHXUSPAIBRCJ";
                     Name = "rotor I";
                     break;
-                case 2:
+                case "II":
                     code = "AJDKSIRUXBLHWTMCQGZNPYFVOE";
                     Name = "rotor II";
                     break;
-                case 3:
+                case "III":
                     code = "BDFHJLCPRTXVZNYEIWGAKMUSQO";
                     Name = "rotor III";
                     break;
-                case 4:
+                case "IV":
                     code = "ESOVPZJAYQUIRHXLNFTGKDCMWB";
                     Name = "rotor IV";
                     break;
-                case 5:
+                case "V":
                     code = "VZBRGITYUPSDNHLXAWMJQOFECK";
                     Name = "rotor V";
                     break;

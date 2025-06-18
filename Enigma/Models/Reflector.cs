@@ -12,19 +12,19 @@ namespace Enigma.Models
         private String code;
         private String Name { get; }
 
-        public Reflector(int type)
+        public Reflector(String type)
         {
             switch (type)
             {
-                case 1:
+                case "A":
                     code = "EJMZALYXVBWFCRQUONTSPIKHGD";
                     Name = "Reflector A";
                     break;
-                case 2:
+                case "B":
                     code = "YRUHQSLDPXNGOKMIEBFZCWVJAT";
                     Name = "Reflector B";
                     break;
-                case 3:
+                case "C":
                     code = "FVPJIAOYEDRZXWGCTKUQSBNMHL";
                     Name = "Reflector C";
                     break;

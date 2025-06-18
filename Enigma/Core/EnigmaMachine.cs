@@ -26,7 +26,7 @@ namespace Enigma.Core
         {
             plugboard = new Plugboard();
         }
-        public void setAll(int typeFirst, int typeSecond, int typeThird, int reflectorType, int firstConf, int secondConf, int thirdConf)
+        public void setAll(String typeFirst, String typeSecond, String typeThird, String reflectorType, int firstConf, int secondConf, int thirdConf)
         {
             firstSlot = new Rotor(typeFirst, firstConf);
             secondSlot = new Rotor(typeSecond, secondConf);
@@ -44,9 +44,21 @@ namespace Enigma.Core
             this.thirdConf = thirdConf;
         }
 
+        public Tuple<int,int,int> getConf()
+        {
+            return Tuple.Create(firstConf, secondConf, thirdConf);
+        }
+
         public void setPlug(char A,char B)
         {
             plugboard.Plug(A, B);
+        }
+
+        public void setRotorTypes(String typeFirst, String typeSecond, String typeThird)
+        {
+            firstSlot = new Rotor(typeFirst, firstConf);
+            secondSlot = new Rotor(typeSecond, secondConf);
+            thirdSlot = new Rotor(typeThird,thirdConf);
         }
 
         private void TurnRotor()

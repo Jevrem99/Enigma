@@ -1,4 +1,9 @@
-﻿using System.Text;
+﻿using Enigma.Core;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
+using System.Media;
+using System.Runtime.CompilerServices;
+using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -8,79 +13,156 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using Enigma.Core;
 
 namespace Enigma
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class MainWindow : Window,INotifyPropertyChanged
     {
-        private EnigmaMachine enigma;
-        private int firstRotor;
-        private int secondRotor;
-        private int thirdRotor;
 
-        private String[] rotorValues = ["I", "II", "III", "IV", "V"];
-        private List<String> selectedValues = new List<String>();
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        private EnigmaMachine enigma;
+        public ObservableCollection<String> AllRotors { get; set; } = new() { "I", "II", "III", "IV", "V" };
+        public ObservableCollection<String> AllReflectors { get; set; } = new() { "A", "B", "C" };
+
+        private Dictionary<char, Border> lamps;
+        private bool keyPressed = false;
+        private String lastLetter = "";
+        private SoundPlayer keyPressedSound = new SoundPlayer("Assets/Sounds/keyPressed2.wav");
+        private SoundPlayer keyReleasedSound = new SoundPlayer("Assets/Sounds/keyReleased1.wav");
 
         public MainWindow()
         {
             InitializeComponent();
-            initializeGraphics();
             enigma = new EnigmaMachine();
+            createLampBoard();
+            this.DataContext = this;
         }
 
-        private void setRotors(Object sender, SelectionChangedEventArgs e)
+        protected void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
-            selectedValues.Clear();
-            String first_rot = (String)FirstRotorComboBox.SelectedValue;
-            String second_rot = (String)SecondRotorComboBox.SelectedValue;
-            String third_rot = (String)ThirdRotorComboBox.SelectedValue;
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
 
-            if (first_rot != "")
-                selectedValues.Add(first_rot);
-            if (second_rot != "")
-                selectedValues.Add(second_rot);
-            if(third_rot != "")
-                selectedValues.Add(third_rot);
-
-            FirstRotorComboBox.Items.Clear();
-            SecondRotorComboBox.Items.Clear();
-            ThirdRotorComboBox.Items.Clear();
-
-            FirstRotorComboBox.SelectedValue = first_rot;
-            SecondRotorComboBox.SelectedValue = second_rot;
-            ThirdRotorComboBox.SelectedValue = third_rot;
-            foreach (String rot_val in rotorValues)
+        public void ConfigEnigma(Object sender, RoutedEventArgs e)
+        {
+            if (areRotorsSet() && isReflectorSet())
             {
-                if (!selectedValues.Exists(x => x == rot_val))
-                {
-                    FirstRotorComboBox.Items.Add(rot_val);
-                    SecondRotorComboBox.Items.Add(rot_val);
-                    ThirdRotorComboBox.Items.Add(rot_val);
-                }
+                String rotI = (String)FirstRotorComboBox.SelectedValue;
+                String rotII = (String)SecondRotorComboBox.SelectedValue;
+                String rotIII = (String)ThirdRotorComboBox.SelectedValue;
+                String reflector = (String)ReflectorComboBox.SelectedValue;
+                int rotIConf = (int)FirstConfIUD.Value;
+                int rotIIConf = (int)SecondConfIUD.Value;
+                int rotIIIConf = (int)ThirdConfIUD.Value;
+
+                enigma.setAll(rotI, rotII, rotIII, reflector, rotIConf, rotIIConf, rotIIIConf);
             }
         }
 
-        private void addAllRotors(ComboBox comboBox)
+        public void KeyTyped(object sender, KeyEventArgs e)
         {
-            comboBox.Items.Clear();
-            foreach (String rotor in rotorValues) 
+            if(isEnigmaSet() && !keyPressed)
             {
-                comboBox.Items.Add(rotor);
+                keyPressed = true;
+                char letter = e.Key.ToString()[0];
+                char encryptedLetter = enigma.Encrypt(char.ToUpper(letter));
+                InputTextBox.Text = InputTextBox.Text + letter;
+                OutputTextBox.Text = OutputTextBox.Text + encryptedLetter;
+                updateConf();
+                lastLetter = encryptedLetter.ToString();
+                lightUpLamp(encryptedLetter);
+                keyPressedSound.Play();
             }
         }
 
-        private void initializeGraphics()
+        public void KeyReleased(object sender, KeyEventArgs e)
         {
-            foreach (String val in rotorValues)
+            if (!string.IsNullOrEmpty(lastLetter))
             {
-                FirstRotorComboBox.Items.Add(val);
-                SecondRotorComboBox.Items.Add(val);
-                ThirdRotorComboBox.Items.Add(val);
+                turnOfLamp(lastLetter[0]);
+                keyReleasedSound.Play();
             }
+            keyPressed = false;
+        }
+
+        public void updateConf()
+        {
+            var conf = enigma.getConf();
+
+            FirstConfIUD.Value = conf.Item1;
+            SecondConfIUD.Value = conf.Item2;
+            ThirdConfIUD.Value= conf.Item3;
+        }
+
+        private bool areRotorsSet()
+        {
+            if(!String.IsNullOrEmpty((String)FirstRotorComboBox.SelectedValue) && !String.IsNullOrEmpty((String)SecondRotorComboBox.SelectedValue) && !String.IsNullOrEmpty((String)ThirdRotorComboBox.SelectedValue))
+                return true;
+            return false;
+        }
+
+        private bool isEnigmaSet()
+        {
+            if(areRotorsSet() && isReflectorSet())
+                return true;
+            return false;
+        }
+
+        private bool isReflectorSet()
+        {
+            if(!String.IsNullOrEmpty((String)ReflectorComboBox.SelectedValue))
+                return true;
+            return false;
+        }
+
+        private void lightUpLamp(char letter)
+        {
+            lamps.TryGetValue(letter, out var lamp);
+            lamp.Background = Brushes.Orange;
+        }
+
+        private void turnOfLamp(char letter)
+        {
+
+             lamps.TryGetValue(letter, out var lamp);
+             lamp.Background = Brushes.LightGray;
+        }
+
+        private void createLampBoard()
+        {
+            lamps = new Dictionary<char, Border>
+            {
+                {'Q' , Q_Lamp },
+                { 'W', W_Lamp },
+                { 'E', E_Lamp },
+                { 'R', R_Lamp },
+                { 'T', T_Lamp },
+                { 'Z', Z_Lamp },
+                { 'U', U_Lamp },
+                { 'I', I_Lamp },
+                { 'O', O_Lamp },
+                { 'A', A_Lamp },
+                { 'S', S_Lamp },
+                { 'D', D_Lamp },
+                { 'F', F_Lamp },
+                { 'G', G_Lamp },
+                { 'H', H_Lamp },
+                { 'J', J_Lamp },
+                { 'K', K_Lamp },
+                { 'P', P_Lamp },
+                { 'Y', Y_Lamp },
+                { 'X', X_Lamp },
+                { 'C', C_Lamp },
+                { 'V', V_Lamp },
+                { 'B', B_Lamp },
+                { 'N', N_Lamp },
+                { 'M', M_Lamp },
+                { 'L', L_Lamp },
+            };
         }
 
     }

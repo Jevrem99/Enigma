@@ -9,6 +9,36 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Assets\Sounds\confChanged.wav" />
+    <None Remove="Assets\Sounds\keyPressed.wav" />
+    <None Remove="Assets\Sounds\keyPressed1.wav" />
+    <None Remove="Assets\Sounds\keyPressed2.wav" />
+    <None Remove="Assets\Sounds\keyReleased.wav" />
+    <None Remove="Assets\Sounds\keyReleased1.wav" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Assets\Sounds\confChanged.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Sounds\keyPressed.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Sounds\keyPressed1.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Sounds\keyPressed2.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Sounds\keyReleased.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Sounds\keyReleased1.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Extended.Wpf.Toolkit" Version="4.7.25104.5739" />
     <PackageReference Include="MahApps.Metro" Version="2.4.10" />
   </ItemGroup>
