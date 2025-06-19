@@ -16,6 +16,7 @@
             <Setter Property="Margin" Value="5"/>
             <Setter Property="FontSize" Value="15"/>
             <Setter Property="Width" Value="40"/>
+            <Setter Property="IsTextSearchEnabled" Value="False"/>
         </Style>
         <Style TargetType="Label">
             <Setter Property="FontSize" Value="20"/>
@@ -226,110 +227,110 @@
                 <ColumnDefinition Width="60*"></ColumnDefinition>
             </Grid.ColumnDefinitions>
             <Grid>
-                <Canvas>
+                <Canvas x:Name="Plugboard" MouseMove="Plugboard_plug_half_conected">
                     <StackPanel Canvas.Left="10" HorizontalAlignment="Center">
                         <Label HorizontalAlignment="Center">Q</Label>
-                        <Button Style="{StaticResource RoundButton}"></Button>
+                        <Button x:Name="Q_Plug" Style="{StaticResource RoundButton}"></Button>
                     </StackPanel>
                     <StackPanel Canvas.Left="40" HorizontalAlignment="Center">
                         <Label HorizontalAlignment="Center">W</Label>
-                        <Button Style="{StaticResource RoundButton}"></Button>
+                        <Button x:Name="W_Plug" Style="{StaticResource RoundButton}"></Button>
                     </StackPanel>
                     <StackPanel Canvas.Left="70" HorizontalAlignment="Center">
                         <Label HorizontalAlignment="Center">E</Label>
-                        <Button Style="{StaticResource RoundButton}"></Button>
+                        <Button x:Name="E_Plug" Style="{StaticResource RoundButton}"></Button>
                     </StackPanel>
                     <StackPanel Canvas.Left="100" HorizontalAlignment="Center">
                         <Label HorizontalAlignment="Center">R</Label>
-                        <Button Style="{StaticResource RoundButton}"></Button>
+                        <Button x:Name="R_Plug" Style="{StaticResource RoundButton}"></Button>
                     </StackPanel>
                     <StackPanel Canvas.Left="130" HorizontalAlignment="Center">
                         <Label HorizontalAlignment="Center">T</Label>
-                        <Button Style="{StaticResource RoundButton}"></Button>
+                        <Button x:Name="T_Plug" Style="{StaticResource RoundButton}"></Button>
                     </StackPanel>
                     <StackPanel Canvas.Left="160" HorizontalAlignment="Center">
                         <Label HorizontalAlignment="Center">Z</Label>
-                        <Button Style="{StaticResource RoundButton}"></Button>
+                        <Button x:Name="Z_Plug" Style="{StaticResource RoundButton}"></Button>
                     </StackPanel>
                     <StackPanel Canvas.Left="190" HorizontalAlignment="Center">
                         <Label HorizontalAlignment="Center">U</Label>
-                        <Button Style="{StaticResource RoundButton}"></Button>
+                        <Button x:Name="U_Plug" Style="{StaticResource RoundButton}"></Button>
                     </StackPanel>
                     <StackPanel Canvas.Left="220" HorizontalAlignment="Center">
                         <Label HorizontalAlignment="Center">I</Label>
-                        <Button Style="{StaticResource RoundButton}"></Button>
+                        <Button x:Name="I_Plug" Style="{StaticResource RoundButton}"></Button>
                     </StackPanel>
                     <StackPanel Canvas.Left="250" HorizontalAlignment="Center">
                         <Label HorizontalAlignment="Center">O</Label>
-                        <Button Style="{StaticResource RoundButton}"></Button>
+                        <Button x:Name="O_Plug" Style="{StaticResource RoundButton}"></Button>
                     </StackPanel>
                     <StackPanel Canvas.Left="10" Canvas.Top="50" HorizontalAlignment="Center">
                         <Label HorizontalAlignment="Center">A</Label>
-                        <Button Style="{StaticResource RoundButton}"></Button>
+                        <Button x:Name="A_Plug" Style="{StaticResource RoundButton}"></Button>
                     </StackPanel>
                     <StackPanel Canvas.Left="40" Canvas.Top="50" HorizontalAlignment="Center">
                         <Label HorizontalAlignment="Center">S</Label>
-                        <Button Style="{StaticResource RoundButton}"></Button>
+                        <Button x:Name="S_Plug" Style="{StaticResource RoundButton}"></Button>
                     </StackPanel>
                     <StackPanel Canvas.Left="70" Canvas.Top="50" HorizontalAlignment="Center">
                         <Label HorizontalAlignment="Center">D</Label>
-                        <Button Style="{StaticResource RoundButton}"></Button>
+                        <Button x:Name="D_Plug" Style="{StaticResource RoundButton}"></Button>
                     </StackPanel>
                     <StackPanel Canvas.Left="100" Canvas.Top="50" HorizontalAlignment="Center">
                         <Label HorizontalAlignment="Center">F</Label>
-                        <Button Style="{StaticResource RoundButton}"></Button>
+                        <Button x:Name="F_Plug" Style="{StaticResource RoundButton}"></Button>
                     </StackPanel>
                     <StackPanel Canvas.Left="130" Canvas.Top="50" HorizontalAlignment="Center">
                         <Label HorizontalAlignment="Center">G</Label>
-                        <Button Style="{StaticResource RoundButton}"></Button>
+                        <Button x:Name="G_Plug" Style="{StaticResource RoundButton}"></Button>
                     </StackPanel>
                     <StackPanel Canvas.Left="160" Canvas.Top="50" HorizontalAlignment="Center">
                         <Label HorizontalAlignment="Center">H</Label>
-                        <Button Style="{StaticResource RoundButton}"></Button>
+                        <Button x:Name="H_Plug" Style="{StaticResource RoundButton}"></Button>
                     </StackPanel>
                     <StackPanel Canvas.Left="190" Canvas.Top="50" HorizontalAlignment="Center">
                         <Label HorizontalAlignment="Center">J</Label>
-                        <Button Style="{StaticResource RoundButton}"></Button>
+                        <Button x:Name="J_Plug" Style="{StaticResource RoundButton}"></Button>
                     </StackPanel>
                     <StackPanel Canvas.Left="220" Canvas.Top="50" HorizontalAlignment="Center">
                         <Label HorizontalAlignment="Center">K</Label>
-                        <Button Style="{StaticResource RoundButton}"></Button>
+                        <Button x:Name="K_Plug" Style="{StaticResource RoundButton}"></Button>
                     </StackPanel>
                     <StackPanel Canvas.Left="250" Canvas.Top="50" HorizontalAlignment="Center">
                         <Label HorizontalAlignment="Center">P</Label>
-                        <Button Style="{StaticResource RoundButton}"></Button>
+                        <Button x:Name="P_Plug" Style="{StaticResource RoundButton}"></Button>
                     </StackPanel>
                     <StackPanel Canvas.Left="20" Canvas.Top="100" HorizontalAlignment="Center">
                         <Label HorizontalAlignment="Center">Y</Label>
-                        <Button Style="{StaticResource RoundButton}"></Button>
+                        <Button x:Name="Y_Plug" Style="{StaticResource RoundButton}"></Button>
                     </StackPanel>
                     <StackPanel Canvas.Left="50" Canvas.Top="100" HorizontalAlignment="Center">
                         <Label HorizontalAlignment="Center">X</Label>
-                        <Button Style="{StaticResource RoundButton}"></Button>
+                        <Button x:Name="X_Plug" Style="{StaticResource RoundButton}"></Button>
                     </StackPanel>
                     <StackPanel Canvas.Left="80" Canvas.Top="100" HorizontalAlignment="Center">
                         <Label HorizontalAlignment="Center">C</Label>
-                        <Button Style="{StaticResource RoundButton}"></Button>
+                        <Button x:Name="C_Plug" Style="{StaticResource RoundButton}"></Button>
                     </StackPanel>
                     <StackPanel Canvas.Left="110" Canvas.Top="100" HorizontalAlignment="Center">
                         <Label HorizontalAlignment="Center">V</Label>
-                        <Button Style="{StaticResource RoundButton}"></Button>
+                        <Button x:Name="V_Plug" Style="{StaticResource RoundButton}"></Button>
                     </StackPanel>
                     <StackPanel Canvas.Left="140" Canvas.Top="100" HorizontalAlignment="Center">
                         <Label HorizontalAlignment="Center">B</Label>
-                        <Button Style="{StaticResource RoundButton}"></Button>
+                        <Button x:Name="B_Plug" Style="{StaticResource RoundButton}"></Button>
                     </StackPanel>
                     <StackPanel Canvas.Left="170" Canvas.Top="100" HorizontalAlignment="Center">
                         <Label HorizontalAlignment="Center">N</Label>
-                        <Button Style="{StaticResource RoundButton}"></Button>
+                        <Button x:Name="N_Plug" Style="{StaticResource RoundButton}"></Button>
                     </StackPanel>
                     <StackPanel Canvas.Left="200" Canvas.Top="100" HorizontalAlignment="Center">
                         <Label HorizontalAlignment="Center">M</Label>
-                        <Button Style="{StaticResource RoundButton}"></Button>
+                        <Button x:Name="M_Plug" Style="{StaticResource RoundButton}"></Button>
                     </StackPanel>
                     <StackPanel Canvas.Left="230" Canvas.Top="100" HorizontalAlignment="Center">
                         <Label HorizontalAlignment="Center">L</Label>
-                        <Button Style="{StaticResource RoundButton}"></Button>
+                        <Button x:Name="L_Plug" Style="{StaticResource RoundButton}"></Button>
                     </StackPanel>
                 </Canvas>
             </Grid>

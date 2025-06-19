@@ -54,6 +54,11 @@ namespace Enigma.Core
             plugboard.Plug(A, B);
         }
 
+        public void removePlug(char A,char B)
+        {
+            plugboard.Unplug(A, B);
+        }
+
         public void setRotorTypes(String typeFirst, String typeSecond, String typeThird)
         {
             firstSlot = new Rotor(typeFirst, firstConf);
